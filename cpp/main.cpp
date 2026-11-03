@@ -74,10 +74,8 @@ Response health(const json& body, const Params& params) {
 // GET /tasks - zwraca kod 200 i liste wszystkich zadan, np.
 //   [{"id": 1, "title": "Kupic mleko"}, {"id": 2, "title": "Nauczyc sie Gita"}]
 Response list_tasks(const json& body, const Params& params) {
-    // TODO (Czesc 2)
-    return Response{501, json{{"error", "Not implemented"}}};
+    return Response{200, tasks};
 }
-
 // POST /tasks - tworzy zadanie, np. dla body {"title": "Kupic mleko"}.
 //
 //   - tytul ok     -> kod 201 i nowe zadanie, np. {"id": 1, "title": "Kupic mleko"}
