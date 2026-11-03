@@ -33,7 +33,15 @@ const std::size_t MAX_TITLE_LENGTH = 100;
 //
 // Jak odpalisz serwer, to sam przetestuje te funkcje i wypluje wynik w konsoli.
 bool is_valid_title(const std::string& title) {
-    // TODO (Czesc 1): na razie ta funkcja przepuszcza wszystko jak dziurawy firewall.
+    auto start = title.find_first_not_of(" \t\n\r\v\f");
+    if (start == std::string::npos) {
+        return false;
+    }
+    auto end = title.find_last_not_of(" \t\n\r\v\f");
+    std::string trimmed = title.substr(start, (end - start + 1));
+    if (trimmed.empty() || trimmed.length() > MAX_TITLE_LENGTH) {
+        return false;
+    }
     return true;
 }
 
