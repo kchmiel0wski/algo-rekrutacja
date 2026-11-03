@@ -33,13 +33,13 @@ const std::size_t MAX_TITLE_LENGTH = 100;
 //
 // Jak odpalisz serwer, to sam przetestuje te funkcje i wypluje wynik w konsoli.
 bool is_valid_title(const std::string& title) {
-    auto start = title.find_first_not_of(" \t\n\r\v\f");
+    auto start = title.find_first_not_of(" \t\n\r\v\f");  //sprawdzenie czy pierwszy znak nie jest whitespacem
     if (start == std::string::npos) {
         return false;
     }
-    auto end = title.find_last_not_of(" \t\n\r\v\f");
-    std::string trimmed = title.substr(start, (end - start + 1));
-    if (trimmed.empty() || trimmed.length() > MAX_TITLE_LENGTH) {
+    auto end = title.find_last_not_of(" \t\n\r\v\f");   //sprawdzenie czy ostatni znak nie jest whitespacem
+    std::string trimmed = title.substr(start, (end - start + 1));  //obciecie wszytskich zbednych białych znaków
+    if (trimmed.empty() || trimmed.length() > MAX_TITLE_LENGTH) {   //finalne sprawdzenie
         return false;
     }
     return true;
@@ -85,8 +85,11 @@ Response list_tasks(const json& body, const Params& params) {
 // Hint: get_string(body, "title") zwraca tytul albo "", jak go nie ma
 // albo to nie jest string.
 Response create_task(const json& body, const Params& params) {
-    // TODO (Czesc 2)
-    return Response{501, json{{"error", "Not implemented"}}};
+    std::string title = get_string(body, "title");
+    if (!is_valid_title(title)) {
+        return Response{400, json{{"error", "Invalid or empty title"}}};  //tytul nie ok
+    }
+    //do dokonczenia tytul ok
 }
 
 // ============================================================================
